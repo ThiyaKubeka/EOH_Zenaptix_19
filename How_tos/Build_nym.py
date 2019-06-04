@@ -18,6 +18,7 @@ trust_anchor_verkey = 'trust_anchor_verkey'
 Init = 'Init'
 pool_config = 'pool_config'
 pool_name = 'pool'
+nym_transcation_request = 'nym_transaction_request'
 genesis_file_path = get_pool_genesis_txn_path(pool_name)
 
 wallet_config = json.dumps({"id": "wallet"})
@@ -31,15 +32,17 @@ def print_log(value_color="", value_noncolor=""):
 
 
 async def how_tos():
-    try: 
-         Init = await write_nym_and_query_verkey()
+            try:
 
-         return(Init)
+                nym = await write_nym_and_query_verkey()
 
-    except IndyError as e:
-        print('Error occurred: %s' % e)
+            except IndyError as e:
+                print('Error occurred: %s' % e)
+            return(nym)
 
+        
 
+      
 def main():
     loop = asyncio.get_event_loop()
     loop.run_until_complete(how_tos())
@@ -48,3 +51,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
