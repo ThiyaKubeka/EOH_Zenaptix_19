@@ -1,3 +1,5 @@
+#This is the modulized function calls found on Wrtie_DID_Func. As can be seen it is run in one single step.
+#As a continuition i am still working on uniquely defining all the functions seperately and will be updated on github as progress is made. 
 import asyncio
 import json
 import pprint
