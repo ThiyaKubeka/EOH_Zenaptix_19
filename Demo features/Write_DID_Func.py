@@ -4,6 +4,7 @@
 import asyncio
 import json
 import pprint
+import random
 
 from indy import pool, ledger, wallet, did
 from indy.error import IndyError, ErrorCode
@@ -80,7 +81,7 @@ async def create_faber_wallet():
 
     print_log('\n. Open Faber Wallet and Get Handle.\n')
     faber_handle = await wallet.open_wallet(wallet_config, wallet_credentials)
-
+    print('faber handle = %s' % faber_handle)
     return faber_handle
 
 
@@ -128,6 +129,5 @@ async def add_to_ledger(Wallet_handle,steward_did,steward_verkey,steward_did_for
 
         return(nym_transaction_request,nym_transaction_response)
 
-async def connection_reques():
 
-   print_log('Send connection request:WORK IN PROGRESS ')
+

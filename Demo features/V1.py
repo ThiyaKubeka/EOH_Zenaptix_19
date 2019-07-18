@@ -3,6 +3,8 @@ import time
 import re
 import json
 import pprint
+import random
+from random import *
 
 
 from indy import crypto, did, wallet,pool,ledger
@@ -48,6 +50,31 @@ async def init():
         return Wallet_handle,steward_did_for_faber ,steward_verkey_for_faber ,steward[0],steward[1]
     return Wallet_handle, steward_did,steward_verkey,steward_did_for_faber,steward_verkey_for_faber
 
+async def send():
+     print_log('\n1. REQUESTING..............\n')
+
+async def accept(Wallet_handle):
+    print_log('\n1. Accept.\n')
+
+    steward_did_for_faber, steward_verkey_for_faber = await did.create_and_store_my_did(Wallet_handle, "{}")
+    nonce = [1,2,3,4,5,6,7,8,9] 
+    shuffle(nonce)
+    print('steward_did for faber =  %s' % (steward_did_for_faber))
+    print('steward_verkey_for_faber = %s'% (steward_verkey_for_faber))      
+    print('nonce = %s' % (nonce))
+    time.sleep(3)
+    print_log('\n1. CREATING WALLET.\n')
+    faber_handle = await create_faber_wallet()
+    faber_did,faber_verkey = await Faber_did_and_verkey(faber_handle)
+    return faber_handle,faber_did,faber_verkey
+    
+
+async def reads(Wallet_handle, steward_verkey):
+    with open('message.dat', 'rb') as f:
+        encrypted = f.read()
+    decrypted = await crypto.auth_decrypt(Wallet_handle, steward_verkey, encrypted)
+    # decrypted = await crypto.anon_decrypt(wallet_handle, my_vk, encrypted)
+    print(decrypted)
 
     
 async def read(Wallet_handle, steward_verkey):
@@ -69,6 +96,10 @@ async def demo():
             await prep(Wallet_handle, steward_verkey, steward_verkey_for_faber, rest)
         elif re.match(cmd, 'read'):
             await read(Wallet_handle, steward_verkey)
+        elif re.match(cmd, 'send'):
+            await send()
+        elif re.match(cmd, 'accept'):
+            await accept(Wallet_handle)
         elif re.match(cmd, 'quit'):
             break
         else:
