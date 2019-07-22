@@ -11,6 +11,7 @@ from indy import crypto, did, wallet,pool,ledger
 from indy.error import IndyError, ErrorCode
 from utils import get_pool_genesis_txn_path, PROTOCOL_VERSION
 from Write_DID_Func import pool_configuration,create_steward_wallet, Steward_did_and_verkey,create_faber_wallet,Faber_did_and_verkey,steward_keys_for_faber,add_to_ledger,print_log
+from steward_wallet import wall, keys, add_faber_to_ledger,pool_config,close,pool_con
 
 
 
@@ -28,7 +29,7 @@ async def init():
     
     me = input('Who are you? ').strip()
     if me == 'steward':
-        pool_handle = await pool_configuration()
+        #pool_handle = await pool_configuration()
         Wallet_handle = await create_steward_wallet()
         steward_did,steward_verkey = await Steward_did_and_verkey(Wallet_handle)    
         
@@ -36,6 +37,7 @@ async def init():
         return Wallet_handle, steward_did, steward_verkey,faber[0],faber[1]
     elif me == 'faber':
         pool_handle = await pool_configuration()
+        #close = await pool_config(pool_handle)
         time.sleep(1)
         Wallet_handle = await create_steward_wallet()
         time.sleep(1)
@@ -49,9 +51,27 @@ async def init():
         steward = input("steward's DID and verkey? ").strip().split(' ')
         return Wallet_handle,steward_did_for_faber ,steward_verkey_for_faber ,steward[0],steward[1]
     return Wallet_handle, steward_did,steward_verkey,steward_did_for_faber,steward_verkey_for_faber
+async def sending():
+    print_log('\n1. Sending connection response..............\n')
+
+
 
 async def send():
      print_log('\n1. REQUESTING..............\n')
+
+async def approve():
+    print_log('\n1. connection response\n')
+    Wall_handles = await wall()
+    Did_for_steward,Verkey_for_steward = await keys(Wall_handles)
+    nonce = [1,2,3,4,5,6,7,8,9] 
+    shuffle(nonce)
+    print('did for steward  =  %s' % (Did_for_steward))
+    print('verkey for steward = %s'% (Verkey_for_steward))      
+    print('nonce = %s' % (nonce))
+
+async def Query(faber_handle):
+    faber_did,faber_verkey = await Faber_did_and_verkey(faber_handle)
+
 
 async def accept(Wallet_handle):
     print_log('\n1. Accept.\n')
@@ -59,8 +79,8 @@ async def accept(Wallet_handle):
     steward_did_for_faber, steward_verkey_for_faber = await did.create_and_store_my_did(Wallet_handle, "{}")
     nonce = [1,2,3,4,5,6,7,8,9] 
     shuffle(nonce)
-    print('steward_did for faber =  %s' % (steward_did_for_faber))
-    print('steward_verkey_for_faber = %s'% (steward_verkey_for_faber))      
+    print('did for steward =  %s' % (steward_did_for_faber))
+    print('verkey for faber = %s'% (steward_verkey_for_faber))      
     print('nonce = %s' % (nonce))
     time.sleep(3)
     print_log('\n1. CREATING WALLET.\n')
@@ -85,7 +105,12 @@ async def read(Wallet_handle, steward_verkey):
     print(decrypted)
 
 async def demo():
+    
     Wallet_handle, steward_did,steward_verkey,steward_did_for_faber,steward_verkey_for_faber = await init()
+
+   
+
+        
     
 
     while True:
@@ -100,6 +125,27 @@ async def demo():
             await send()
         elif re.match(cmd, 'accept'):
             await accept(Wallet_handle)
+        elif re.match(cmd, 'sending'):
+            await sending()
+        elif re.match(cmd, 'approve'):
+            await approve()
+            print_log('\n PREPARING TO BUILD NYM....\n')
+          
+            pool_ = await pool_config()
+            faber_handle = await create_faber_wallet()
+            faber_did,faber_verkey = await Faber_did_and_verkey(faber_handle)
+            build = await add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,pool_)
+            clos = await close(pool_)
+        elif re.match(cmd, 'get'):
+          faber_handle = await create_faber_wallet()
+          faber_did,faber_verkey = await Faber_did_and_verkey(faber_handle)
+    
+        elif re.match(cmd, 'query'):
+            poole = await pool_con()
+            faber_handle = await create_faber_wallet()
+            faber_did,faber_verkey = await Faber_did_and_verkey(faber_handle)
+            build = await add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,poole)
+
         elif re.match(cmd, 'quit'):
             break
         else:
