@@ -35,13 +35,27 @@ async def pool_configuration():
 
         try:
             await pool.create_pool_ledger_config(config_name=pool_name, config=pool_config)
-        except IndyError:
-            await pool.delete_pool_ledger_config(config_name=pool_name)
-            await pool.create_pool_ledger_config(config_name=pool_name, config=pool_config)
+        except IndyError as ex:
+                if ex.error_code == ErrorCode.PoolLedgerConfigAlreadyExistsError:
+                    pass
         print_log('\n2. Open ledger and get handle\n')
         pool_handle = await pool.open_pool_ledger(config_name=pool_name, config=None)
         return pool_handle
 
+async def pool_config(pool_handle):
+    
+    
+        await pool.set_protocol_version(PROTOCOL_VERSION)
+
+     
+        pool_config = json.dumps({'genesis_txn': str(genesis_file_path)})
+        print_log('\n1. Close pool.\n')
+
+        try:
+            await pool.close_pool_ledger(pool_handle)
+        except IndyError as ex:
+         if ex.error_code == ErrorCode.PoolLedgerInvalidPoolHandle:
+             pass
     
 
 async def create_steward_wallet():
@@ -71,16 +85,18 @@ async def create_faber_wallet():
     wallet_credentials = json.dumps({"key": "wallet_key_faber"})
     # 1. Create Wallet and Get Wallet Handle
     
-    print_log('\n. Create faber wallet.\n')          
-
+   
     try:  
         await wallet.create_wallet(wallet_config, wallet_credentials)
-    except IndyError:
-        await wallet.delete_wallet(wallet_config, wallet_credentials)
-        await wallet.create_wallet(wallet_config, wallet_credentials)
-
+    except IndyError as ex:
+        if ex.error_code == ErrorCode.WalletAlreadyExistsError:
+            pass
     print_log('\n. Open Faber Wallet and Get Handle.\n')
-    faber_handle = await wallet.open_wallet(wallet_config, wallet_credentials)
+    try:
+        faber_handle = await wallet.open_wallet(wallet_config, wallet_credentials)
+    except IndyError as ex:
+        if ex.error_code == ErrorCode.WalletAlreadyOpenedError:
+            pass
     print('faber handle = %s' % faber_handle)
     return faber_handle
 
@@ -88,7 +104,7 @@ async def create_faber_wallet():
 
 async def Faber_did_and_verkey(faber_handle):
 
-        print_log('\n. Generate and store Faber did and verkey.\n')
+      
         try:
            Faber_did, Faber_verkey = await did.create_and_store_my_did(faber_handle, "{}")
         except IndyError as ex:
@@ -118,7 +134,7 @@ async def add_to_ledger(Wallet_handle,steward_did,steward_verkey,steward_did_for
         print_log('NYM transaction request: ')
         pprint.pprint(json.loads(nym_transaction_request))
 
-        # 8.
+        
         print_log('\n8. Sending NYM request to the ledger\n')
         nym_transaction_response = await ledger.sign_and_submit_request(pool_handle=pool_handle,
                                                                         wallet_handle=Wallet_handle,
@@ -130,4 +146,25 @@ async def add_to_ledger(Wallet_handle,steward_did,steward_verkey,steward_did_for
         return(nym_transaction_request,nym_transaction_response)
 
 
+async def add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,pool_handle):
+
+        print_log('\n7. Building NYM request to add faber did and verkey to the ledger\n')
+        nym_transaction_request = await ledger.build_nym_request(submitter_did=steward_did,
+                                                                 target_did= faber_did,
+                                                                 ver_key=faber_verkey,
+                                                                 alias=None,
+                                                                 role='TRUST_ANCHOR')
+        print_log('NYM transaction request: ')
+        pprint.pprint(json.loads(nym_transaction_request))
+
+        
+        print_log('\n8. Sending NYM request to the ledger\n')
+        nym_transaction_response = await ledger.sign_and_submit_request(pool_handle=pool_handle,
+                                                                        wallet_handle=Wallet_handle,
+                                                                        submitter_did=steward_did,
+                                                                        request_json=nym_transaction_request)
+        print_log('NYM transaction response: ')
+        pprint.pprint(json.loads(nym_transaction_response))
+
+        return(nym_transaction_request,nym_transaction_response)
 
