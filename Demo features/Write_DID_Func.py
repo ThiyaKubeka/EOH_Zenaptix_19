@@ -14,7 +14,7 @@ from utils import get_pool_genesis_txn_path, PROTOCOL_VERSION
 pool_name = 'pool'
 genesis_file_path = get_pool_genesis_txn_path(pool_name)
 
-
+pool_s = 'pool'
 
 
 def print_log(value_color="", value_noncolor=""):
@@ -42,7 +42,7 @@ async def pool_configuration():
         pool_handle = await pool.open_pool_ledger(config_name=pool_name, config=None)
         return pool_handle
 
-async def pool_config(pool_handle):
+async def pool_close(pool_handle):
     
     
         await pool.set_protocol_version(PROTOCOL_VERSION)
@@ -97,7 +97,7 @@ async def create_faber_wallet():
     except IndyError as ex:
         if ex.error_code == ErrorCode.WalletAlreadyOpenedError:
             pass
-    print('faber handle = %s' % faber_handle)
+    
     return faber_handle
 
 
@@ -145,8 +145,27 @@ async def add_to_ledger(Wallet_handle,steward_did,steward_verkey,steward_did_for
 
         return(nym_transaction_request,nym_transaction_response)
 
+async def pools():
+    await pool.set_protocol_version(PROTOCOL_VERSION)
 
-async def add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,pool_handle):
+    
+    pool_config = json.dumps({'genesis_txn': str(genesis_file_path)})
+   
+
+    try:
+        await pool.create_pool_ledger_config(config_name=pool_s, config=pool_config)
+    except IndyError as ex:
+            if ex.error_code == ErrorCode.PoolLedgerConfigAlreadyExistsError:
+                pass
+    try:
+        pooles = await pool.open_pool_ledger(config_name=pool_s, config=None)
+    except IndyError as ex:
+            if ex.error_code == ErrorCode.PoolLedgerInvalidPoolHandle:
+                pass
+    return pooles
+
+
+async def add_faber_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,pooles):
 
         print_log('\n7. Building NYM request to add faber did and verkey to the ledger\n')
         nym_transaction_request = await ledger.build_nym_request(submitter_did=steward_did,
@@ -159,7 +178,7 @@ async def add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did
 
         
         print_log('\n8. Sending NYM request to the ledger\n')
-        nym_transaction_response = await ledger.sign_and_submit_request(pool_handle=pool_handle,
+        nym_transaction_response = await ledger.sign_and_submit_request(pool_handle=pooles,
                                                                         wallet_handle=Wallet_handle,
                                                                         submitter_did=steward_did,
                                                                         request_json=nym_transaction_request)
