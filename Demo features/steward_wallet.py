@@ -56,8 +56,11 @@ async def pool_config():
     except IndyError as ex:
             if ex.error_code == ErrorCode.PoolLedgerConfigAlreadyExistsError:
                 pass
-    
-    pool_ = await pool.open_pool_ledger(config_name=pool_na, config=None)
+    try:
+        pool_ = await pool.open_pool_ledger(config_name=pool_na, config=None)
+    except IndyError as ex:
+            if ex.error_code == ErrorCode.PoolLedgerInvalidPoolHandle:
+                pass
     return pool_
 async def close(pool_):
     await pool.set_protocol_version(PROTOCOL_VERSION)
@@ -92,7 +95,7 @@ async def pool_con():
 
 async def add_faber_to_ledger(Wallet_handle,steward_did,steward_verkey,faber_did,faber_verkey,pool_):
 
-        print_log('\n7. Building NYM request to add faber did and verkey to the ledger\n')
+        print_log('\n7. Building NYM request to add faber did and verkey to the ledger as NONE\n')
         nym_transaction_request = await ledger.build_nym_request(submitter_did=steward_did,
                                                                  target_did= faber_did,
                                                                  ver_key=faber_verkey,
