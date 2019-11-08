@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="44870fd7-5f94-4e06-893b-48735ebe1e95" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="ExternalProjectsData">
+    <projectState path="$PROJECT_DIR$">
+      <ProjectState />
+    </projectState>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Scala Worksheet" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="1" />
+  </component>
+  <component name="ProjectId" id="1TF8vEklywF8QN6gWNbNHkeHPCu" />
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="SbtLocalSettings">
+    <option name="availableProjects">
+      <map>
+        <entry>
+          <key>
+            <ExternalProjectPojo>
+              <option name="name" value="Data Abstraction" />
+              <option name="path" value="$PROJECT_DIR$" />
+            </ExternalProjectPojo>
+          </key>
+          <value>
+            <list>
+              <ExternalProjectPojo>
+                <option name="name" value="data-abstraction [file:/home/thiyas/Documents/Zenaptix-Intern/Scalas/WorkOutExamples/Data%20Abstraction/]" />
+                <option name="path" value="$PROJECT_DIR$" />
+              </ExternalProjectPojo>
+              <ExternalProjectPojo>
+                <option name="name" value="Data Abstraction-build" />
+                <option name="path" value="$PROJECT_DIR$/project" />
+              </ExternalProjectPojo>
+            </list>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="modificationStamps">
+      <map>
+        <entry key="$PROJECT_DIR$" value="3146089423395" />
+        <entry key="$PROJECT_DIR$/build.sbt" value="3891191870" />
+        <entry key="$PROJECT_DIR$/project/build.properties" value="3724303870" />
+      </map>
+    </option>
+    <option name="projectSyncType">
+      <map>
+        <entry key="$PROJECT_DIR$/../../../Scala_Assignments" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Anagrams" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Data and Abstraction/Assignment" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Functions and Evaluation/Assignment1/Assignemnt" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Higher_Order_Functions/Assignment/funsets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Higher_Order_Functions/Functional_sets" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Other Collections" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../Types and Pattern Matching" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$" value="RE_IMPORT" />
+        <entry key="$PROJECT_DIR$/../../forcomp" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../fun-proc-scala-anagrams-master" value="PREVIEW" />
+        <entry key="$PROJECT_DIR$/../../../scala-anagrams-master" value="PREVIEW" />
+        <entry key="$USER_HOME$/IdeaProjects/untitled" value="PREVIEW" />
+      </map>
+    </option>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="44870fd7-5f94-4e06-893b-48735ebe1e95" name="Default Changelist" comment="" />
+      <created>1573044711693</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1573044711693</updated>
+    </task>
+    <servers />
+  </component>
+</project>

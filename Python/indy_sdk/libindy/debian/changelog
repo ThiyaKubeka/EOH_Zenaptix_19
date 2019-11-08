@@ -1,0 +1,78 @@
+libindy (1.9.0) unstable; urgency=medium
+
+[ Hyperledger ]
+
+## 1.9.0
+* Added a set of functions to support work with `Transaction Author Agreement` concept
+   This guarantees that every write transaction author agree that the information they submit
+   to the ledger meets the requirements outlined by ledger governance.
+    * `indy_build_txn_author_agreement_request` to add a new version of Transaction Author Agreement to the ledger.
+    * `indy_build_get_txn_author_agreement_request` to get a Transaction Author Agreement from the ledger.
+    * `indy_build_acceptance_mechanisms_request` to add new acceptance mechanisms for transaction author agreement.
+    * `indy_build_get_acceptance_mechanisms_request` to get acceptance mechanisms from the ledger.
+    * `indy_append_txn_author_agreement_acceptance_to_request` to append transaction author agreement acceptance data to a request.
+    * `indy_append_txn_author_agreement_acceptance_to_request` to append transaction author agreement acceptance data to a request.
+    * `indy_prepare_payment_extra_with_acceptance_data` to prepare payment extra JSON with TAA acceptance data.
+* Updated `indy_verifier_verify_proof` function to check restrictions on requested predicates during validation of proof.
+* Updated Libindy to use [Ursa](https://github.com/hyperledger/ursa) instead of [Indy-Crypto](https://github.com/hyperledger/indy-crypto).
+* Added *EXPERIMENTAL* `Cache API` to Libindy that provides an ability to get and to store schemas and credential definitions into the wallet.
+    * `indy_get_cred_def` to get credential definition for specified credential definition id.
+    * `indy_purge_cred_def_cache` to purge credential definition cache.
+    * `indy_get_schema` to get schema for specified schema id.
+    * `indy_purge_schema_cache` to purge schema cache.
+* Implemented `State Proof` verification for some types of GET requests to the ledger.
+* Bugfixes:
+    * others minor bugfixes
+
+## 1.8.3
+* Bugfixes:
+    *  Fixed behavior of `auth_rule` and `get_auth_rule` request builders.
+    * Fixed `boolean` datatype representation for FFI.
+    * others minor bugfixes
+
+## 1.8.2
+ Added new functions to Libindy Ledger API:
+    * `indy_build_auth_rule_request` to change an existing ledger auth rule.
+    * `indy_build_get_auth_rule_request` to get either specific one or all ledger auth rules.
+* Removed Deprecation warnings from `indy_crypto_anon_crypt` and `indy_crypto_anon_decrypt` functions.
+* Restart catchup in case of outdated pool cache.
+* Bugfixes
+
+* 1.8.1
+    * Bugfixes
+
+* 1.8.0
+    * Added function `indy_get_current_error` to get additional information for last error occurred in Libindy.
+    * Implemented automatic filtering of outdated responses based on comparison of local time with latest transaction ordering time.
+    * Added *EXPERIMENTAL* `indy_pack_message` and `indy_unpack_message` functions to support
+        Wire Messages described in AMES HIPE(https://github.com/hyperledger/indy-hipe/pull/43)
+    * Functions `indy_crypto_anon_crypt` and `indy_crypto_anon_decrypt` marked as *Deprecated*.
+    * Added `NETWORK_MONITOR` role to NYM transaction builder.
+    * Bugfixes
+
+* 1.7.0
+    * Added Logging API
+        * Added function `indy_get_logger` for plugins to give their logging to libindy
+        * Added function `indy_set_logger` for client apps and wrappers to receive logs from libindy
+        * Integrated libindy logging into Slf4j for Java wrapper and into python logging facade
+    * Introduced multithreading for Wallet API and CRED_DEF generation
+    * Bugfixes
+
+* 1.6.8
+    * Fix State Proof verification for some types of GET requests to the ledger
+    * Additional clean-up for secrets in logs
+
+* 1.6.7
+    * Supported hexadecimal seed for did and key creation.
+    * Removed TGB role.
+    * Bugfixes.
+
+* 1.6.6
+    * Fixed Android build rustflags. Now all architectures have same flags.
+
+* 1.6.5
+    * Fixed `ARGON2I` constants usage to be compatible with the latest sodium.
+    * Parameter `submitter_did` set as the optional field for:
+        * Ledger API `indy_build_get_*` functions (except `indy_build_get_validator_info_request`).
+        * all functions in Payment API.
+    * Fixed Android build rustflags for all architectures for libc linking.

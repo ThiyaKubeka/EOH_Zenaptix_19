@@ -1,0 +1,6 @@
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /home/thiyas/Documents/Zenaptix-Intern/Scalas/Higher_Order_Functions/Functional_sets/project/target/.sbt-compilation-infos/functional_sets-compile/.sbt-idea-lock ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/thiyas/Documents/Zenaptix-Intern/Scalas/Higher_Order_Functions/Functional_sets/src/main/scala/funsets/FunSets.scala:92:24: procedure syntax is deprecated: instead, add `: Unit =` to explicitly declare `printSet`'s return type[0m
+[0m[[0m[33mwarn[0m] [0m[0m  def printSet(s: Set) {[0m
+[0m[[0m[33mwarn[0m] [0m[0m                       ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /home/thiyas/Documents/Zenaptix-Intern/Scalas/Higher_Order_Functions/Functional_sets/project/target/.sbt-compilation-infos/functional_sets-compile/.sbt-idea-lock.[0m
