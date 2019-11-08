@@ -1,0 +1,6 @@
+[0m[[0m[0mdebug[0m] [0m[0mAcquiring lock on file /home/thiyas/Documents/Zenaptix-Intern/Scalas/Types and Pattern Matching/project/target/.sbt-compilation-infos/types-and-pattern-matching-compile/.sbt-idea-lock ...[0m
+[0m[[0m[33mwarn[0m] [0m[0m/home/thiyas/Documents/Zenaptix-Intern/Scalas/Types and Pattern Matching/src/main/scala/patmat/Huffman.scala:241:55: method + in class Char is deprecated (since 2.13.0): Adding a number and a String is deprecated. Use the string interpolation `s"$num$str"`[0m
+[0m[[0m[33mwarn[0m] [0m[0m    case Nil => throw new NoSuchElementException(char + " cannot be found")[0m
+[0m[[0m[33mwarn[0m] [0m[0m                                                      ^[0m
+[0m[[0m[33mwarn[0m] [0m[0mone warning found[0m
+[0m[[0m[0mdebug[0m] [0m[0mReleasing lock on file /home/thiyas/Documents/Zenaptix-Intern/Scalas/Types and Pattern Matching/project/target/.sbt-compilation-infos/types-and-pattern-matching-compile/.sbt-idea-lock.[0m

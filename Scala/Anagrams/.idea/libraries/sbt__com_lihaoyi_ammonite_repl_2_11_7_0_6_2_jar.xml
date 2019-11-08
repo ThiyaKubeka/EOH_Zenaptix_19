@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="sbt: com.lihaoyi:ammonite-repl_2.11.7:0.6.2:jar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.lihaoyi/ammonite-repl_2.11.7/jars/ammonite-repl_2.11.7-0.6.2.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.ivy2/cache/com.lihaoyi/ammonite-repl_2.11.7/srcs/ammonite-repl_2.11.7-0.6.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
